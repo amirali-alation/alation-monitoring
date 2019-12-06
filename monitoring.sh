@@ -16,6 +16,15 @@ else
     echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): INFO: Success update" >> $LOG_FILE
 fi
 
+out=$(/usr/bin/yum -y install fontconfig freetype* urw-fonts)
+ret=$?
+if [[ ${ret} != 0 ]]
+then
+    echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): ERROR: Failed to install dependencies" >> $LOG_FILE
+else
+    echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): INFO: Success installing dependencies " >> $LOG_FILE
+fi
+
 
 out=$(wget -O /tmp/influxdb-1.7.7.x86_64.rpm https://dl.influxdata.com/influxdb/releases/influxdb-1.7.7.x86_64.rpm)
 ret=$?
