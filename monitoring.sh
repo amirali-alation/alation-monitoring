@@ -113,3 +113,21 @@ else
     echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): INFO: Success enabling influxdb" >> $LOG_FILE
 fi
 
+
+out=$(systemctl daemon-reload)
+ret=$?
+if [[ ${ret} != 0  ]]
+then
+    echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): ERROR: Failed to reload daemon" >> $LOG_FILE
+else
+    echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): INFO: Success reloading daemon" >> $LOG_FILE
+fi
+
+out=$(systemctl start influxdb influxd telegraf grafana-server)
+ret=$?
+if [[ ${ret} != 0  ]]
+then
+    echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): ERROR: Failed to start all services" >> $LOG_FILE
+else
+    echo "$(/bin/date +%Y-%m-%dT%H:%M:%S): INFO: Success starting all services" >> $LOG_FILE
+fi
