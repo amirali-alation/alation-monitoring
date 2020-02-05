@@ -1745,7 +1745,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Queue Size (message)",
+      "title": "Queue Size (Number of Message)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1800,7 +1800,7 @@
         "alignAsTable": true,
         "avg": false,
         "current": true,
-        "max": false,
+        "max": true,
         "min": false,
         "rightSide": true,
         "show": true,
@@ -1853,7 +1853,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Queue Size",
+      "title": "Queue Size (Byte)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1899,7 +1899,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1930,5 +1930,5 @@
   "timezone": "",
   "title": "Alation Analytics",
   "uid": "JT-OnNVWk",
-  "version": 15
+  "version": 17
 }
