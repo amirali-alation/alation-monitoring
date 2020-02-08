@@ -1723,7 +1723,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rabbitmq_queue",
+          "measurement": "rabbitmq_overview",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1732,7 +1732,7 @@
             [
               {
                 "params": [
-                  "messages_ready"
+                  "messages_delivered"
                 ],
                 "type": "field"
               }
@@ -1745,7 +1745,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Queue Size (Number of Message)",
+      "title": "Message Delivered",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1930,5 +1930,5 @@
   "timezone": "",
   "title": "Alation Analytics",
   "uid": "JT-OnNVWk",
-  "version": 17
+  "version": 18
 }
