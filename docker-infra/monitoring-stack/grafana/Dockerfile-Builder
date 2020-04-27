@@ -1,0 +1,21 @@
+FROM golang:1.13
+
+COPY build/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt update && apt install --no-install-recommends yarn
+
+RUN apt-get update && apt-get install -y bzip2
+RUN wget -P /tmp https://nodejs.org/dist/v12.13.0/node-v12.13.0-linux-x64.tar.gz && mkdir -p /opt/nodejs && \
+    tar -xvzf /tmp/node-v12.13.0-linux-x64.tar.gz -C /opt/nodejs/ && ln -s /opt/nodejs/node-v12.13.0-linux-x64 /opt/nodejs/current
+RUN ln -s /opt/nodejs/current/bin/node /bin/node && \
+    ln -s /opt/nodejs/current/bin/npm /bin/npm
+WORKDIR /go/src/grafana
+
+COPY src .
+#RUN yarn install --pure-lockfile --no-progress
+#RUN go run build.go setup
+#RUN go run build.go build
+
+ENTRYPOINT ["/entrypoint.sh"]

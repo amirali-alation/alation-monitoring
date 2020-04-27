@@ -1,0 +1,50 @@
+FROM buildpack-deps:buster-scm
+MAINTAINER Amirali Shahinpour <amirali.shahinpour@alation.com>
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+                g++ \
+                gcc \
+                libc6-dev \
+                make \
+                pkg-config \
+        && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/share/grafana
+
+RUN mkdir -p /etc/grafana/ \
+ && mkdir -p /var/lib/grafana \
+ && mkdir -p /usr/sbin \
+ && mkdir -p /var/lib/grafana/plugins \
+ && mkdir -p /etc/grafana/provisioning \
+ && mkdir -p /usr/share/grafana/conf
+
+COPY build/linux-amd64/grafana-server /usr/bin/grafana-server
+COPY build/linux-amd64/grafana-cli /usr/bin/grafana-cli
+COPY build/public /usr/share/grafana/public
+COPY build/run.sh /run.sh
+COPY build/defaults.ini /usr/share/grafana/conf/defaults.ini
+COPY build/grafana.ini /etc/grafana/grafana.ini
+COPY build/alation_icon.svg /usr/share/grafana/public/img/grafana_icon.svg
+
+#COPY patches/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon.svg
+#COPY plugins/*.zip /var/lib/grafana/plugins/
+
+ENV GF_PATHS_HOME=/usr/share/grafana
+ENV GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+ENV GF_PATHS_DATA=/var/lib/grafana
+ENV GF_PATHS_LOGS=/var/log/grafana
+ENV GF_PATHS_PLUGINS=/var/lib/grafana/plugins
+ENV GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+
+
+#RUN cd /var/lib/grafana/plugins/ \
+#    && unzip briangann-grafana-gauge-panel-a4531b4.zip \
+#    && unzip digrich-bubblechart-panel-0d2ee17.zip \
+#    && unzip grafana-clock-panel-6fdc3d5.zip \
+#    && unzip grafana-worldmap-panel-aac5e37.zip \
+#    && unzip NatelEnergy-grafana-plotly-panel-fd20e71.zip \
+#    && unzip Vonage-Grafana_Status_panel-v1.0.9-4-g2a9b8e1.zip \
+#    && unzip grafana-piechart-panel-cf03cdf.zip \
+#    && rm -f *.zip
+
+ENTRYPOINT ["/run.sh"]
