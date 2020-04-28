@@ -1,4 +1,5 @@
-FROM golang:1.13
+FROM alation-analytics-docker-virtual.alationdevops.com/grafana-builder:1.0.0
+MAINTAINER Amirali Shahinpour <amirali.shahinpour@alation.com>
 
 COPY build/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

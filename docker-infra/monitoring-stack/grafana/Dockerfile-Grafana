@@ -1,4 +1,4 @@
-FROM buildpack-deps:buster-scm
+FROM alation-analytics-docker-virtual.alationdevops.com/grafana:1.0.0
 MAINTAINER Amirali Shahinpour <amirali.shahinpour@alation.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -25,6 +25,10 @@ COPY build/run.sh /run.sh
 COPY build/defaults.ini /usr/share/grafana/conf/defaults.ini
 COPY build/grafana.ini /etc/grafana/grafana.ini
 COPY build/alation_icon.svg /usr/share/grafana/public/img/grafana_icon.svg
+COPY datasources /etc/grafana/provisioning/datasources
+COPY dashboards/config.yaml /etc/grafana/provisioning/dashboards/config.yaml
+COPY dashboards/dashboard.json /var/lib/grafana/dashboards/dashboard.json
+
 
 #COPY patches/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon.svg
 #COPY plugins/*.zip /var/lib/grafana/plugins/
